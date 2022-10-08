@@ -9,7 +9,6 @@ const GlobalStyles = createGlobalStyle`
     min-height: 100vh;
     overflow-x: hidden;
     font-size: 12px;
-
   }
   html, body {
     background-color: #F1F6F9;
@@ -17,6 +16,8 @@ const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     font-family: Montserrat;
     background: #F1F6F9;
+    color: #092896;
+
 }
 
 ${'' /* @font-face {

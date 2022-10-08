@@ -24,7 +24,7 @@ export const UserLevelStyles = styled.div`
   flex-direction: column;
   padding: 20px;
   width: 350px;
-  margin: 70px 20px 20px;
+  margin: 50px 20px 20px;
 `
 export const UserLogoStyles = styled.div`
 
@@ -35,6 +35,7 @@ export const NFTUserStyles = styled.div`
 export const UserName = styled.div`
   margin-bottom: 15px;
   font-weight: bold;
+  font-size: 22px;
 `
 
 export const LevelProgress = styled.span`
@@ -49,7 +50,7 @@ export const LevelTimesStyles = styled.div`
   border-radius: 50%;
   background: #00ABFF;
   position: absolute;
-  margin-top: 25px;
+  margin-top: 35px;
   border: 3px solid rgba(9, 40, 150, 1);
   text-align: center;
   justify-content: center;
