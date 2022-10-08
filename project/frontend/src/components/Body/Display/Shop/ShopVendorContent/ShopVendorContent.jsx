@@ -1,15 +1,15 @@
 import React from "react";
 
 import { observer } from "mobx-react-lite";
-import { ShopVendorContentWrapper} from "./ShopVendorContent.styles";
+import { ShopVendorContentWrapper } from "./ShopVendorContent.styles";
 import ShopProduct from "../ShopProduct";
-
+import CreateProduct from "../CreateProduct";
 
 const ShopVendorContent = () => {
   return (
     <ShopVendorContentWrapper>
-      <ShopProduct/>
-      
+      <CreateProduct />
+      <ShopProduct />
     </ShopVendorContentWrapper>
   );
 };
