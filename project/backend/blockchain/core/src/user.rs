@@ -45,7 +45,7 @@ impl Drop for UserKeyPair {
 }
 
 async fn create_user_key_pair(user_id: &str) -> Result<UserKeyPair, CoreError> {
-    match Api::base().get(NEW_WALLET).await {
+    match Api::base().post(NEW_WALLET, "").await {
         Ok(str) => match serde_json::from_str(str.as_str()) {
             Ok(key_pair) => {
                 let result: UserKeyPair = key_pair;
