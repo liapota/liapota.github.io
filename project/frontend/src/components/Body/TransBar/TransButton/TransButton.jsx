@@ -15,7 +15,7 @@ const TransBar = () => {
     <TransButtonWrapper>
       <TransButtonLineWrapper>
         <Direction>Блокчейн</Direction>
-        <div>{"->"}</div>
+        <div>&rarr;</div>
         <Direction>Name Surname</Direction>
         <TransImg src={imgSrc} alt="" />
       </TransButtonLineWrapper>
