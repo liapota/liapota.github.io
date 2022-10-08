@@ -16,12 +16,12 @@ export const CreateProductWrapper = styled.div`
   border-radius: 10px;
   justify-content: center;
   :hover{
-    .img-text{
+      .img-text{
+          background-color: #00ABFF;
+          color: white;
+          opacity: 1;
+      }
       background-color: #00ABFF;
-      color: white;
-      opacity: 1;
-    }
-    background-color: #00ABFF;
   }
 `;
 
