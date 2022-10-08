@@ -44,6 +44,7 @@ class TimelineStore {
     this.isMember = result;
   };
 
+  // получить все эвенты
   getEventsHandler = () => {
     apiMain
       .getEvents()
@@ -56,6 +57,39 @@ class TimelineStore {
         this.setReward(data.reward);
         this.setCreatorId(data.creator_id);
         this.setIsMember(data.is_member);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  // создать эвент админом
+  postEventHandler = (creatorId, title, description, start, duration, reward) => {
+    apiMain
+      .postEventHandler(creatorId, title, description, start, duration, reward)
+      .then(({ data }) => {
+          console.log('ok');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  // закрыть эвент админом
+  closeEventHandler = (eventId, reward) => {
+    apiMain
+      .closeEvent(eventId, reward)
+      .then(({ data }) => {
+          console.log('ok');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  // подписаться на участие
+  subscribeEventHandler = (eventId) => {
+    apiMain
+      .subscribeEvent(eventId)
+      .then(({ data }) => {
+          console.log('ok');
       })
       .catch((err) => {
         console.error(err);

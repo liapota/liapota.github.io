@@ -17,6 +17,8 @@ class UserStore {
   participationTeams = [];
   teammates = [];
 
+  bonuses = [];
+
   setId = (result) => {
     this.id = result;
   };
@@ -35,17 +37,27 @@ class UserStore {
   setTeammates = (result) => {
     this.teammates = result;
   };
+  setBonuses = (result) => {
+    this.bonuses = result;
+  };
 
   getUserHandler = (id) => {
     apiMain
       .getUser(id)
       .then(({ data }) => {
         console.log(data);
-        this.setId(data.id);
-        this.setRole(data.role);
-        this.setName(data.name);
-        this.setSurname(data.surname);
-        this.setParticipationTeams(data.participation_teams);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  getBonusHandler = () => {
+    apiMain
+      .getBonus()
+      .then(({ data }) => {
+        console.log(data);
+        this.setBonuses(data);
       })
       .catch((err) => {
         console.error(err);
