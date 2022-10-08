@@ -31,8 +31,18 @@ class GlobalStore  {
             this.tabsProfile.map(tab => tab.active = false);
             this.tabsProfile[id].active = true
         }
+
+        if (text === "shop") {
+            this.tabsShop.map(tab => tab.active = false);
+            this.tabsShop[id].active = true
+        }
         
     }
+
+    tabsShop = [
+        { name: "ВЕНДОМАТ", active: true },
+        { name: "МАРКЕТПЛЕЙС", active: false },
+    ];
 
 
     

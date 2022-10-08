@@ -9,9 +9,7 @@ const ShopVendorContent = () => {
   return (
     <ShopVendorContentWrapper>
       <ShopProduct/>
-      <ShopProduct/>
-      <ShopProduct/>
-      <ShopProduct/>
+      
     </ShopVendorContentWrapper>
   );
 };
