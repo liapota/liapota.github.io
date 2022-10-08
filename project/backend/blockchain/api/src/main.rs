@@ -1,8 +1,19 @@
 use std::{net::SocketAddr, convert::Infallible};
 
-use api::transactions::handle_transactions_get;
-use hyper::{service::{make_service_fn, service_fn}, Server, Request, Response, Body, Method};
-use core::{response::{internal_server_error, not_found, not_allowed}, user::create_user_table_if_not_exists};
+use api::{
+    cookie::get_from_cookie,
+    transactions::handle_transactions_get,
+    user::{handle_user_get, handle_users_get},
+};
+use core::{
+    response::{self, internal_server_error, not_allowed, not_found},
+    user::create_user_table_if_not_exists,
+};
+use hyper::{
+    header,
+    service::{make_service_fn, service_fn},
+    Body, Method, Request, Response, Server,
+};
 
 fn print_request_data(req: &Request<Body>) {
     if let Some(user_id) = req.headers().get("x-user-id") {
@@ -106,7 +117,10 @@ type TokioResult<T> = std::result::Result<T, Box<dyn std::error::Error + Send + 
 #[tokio::main]
 async fn main() -> TokioResult<()> {
     let addr = SocketAddr::from(([127, 0, 0, 1], 4242));
-    create_user_table_if_not_exists();
+    match create_user_table_if_not_exists().await {
+        Ok(()) => {}
+        Err(error) => panic!("Cannot create user table: {}", error),
+    }
 
     let make_svc =
         make_service_fn(|_conn| async { Ok::<_, Infallible>(service_fn(handle_request)) });

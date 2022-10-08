@@ -1,0 +1,2 @@
+# Updating index and images with 1 minute delay between
+20 4 * * * /blockchain/blago &>> /var/log/blago.log
