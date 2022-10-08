@@ -1,8 +1,8 @@
 use core::{
-    balance::{self, Balance},
+    balance::Balance,
     db::connect_db,
     response::internal_server_error,
-    user::{self, get_user_exp, get_user_key_pair},
+    user::{get_user_exp, get_user_key_pair},
 };
 use std::fmt;
 

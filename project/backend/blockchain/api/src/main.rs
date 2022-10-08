@@ -2,7 +2,9 @@ use std::{convert::Infallible, net::SocketAddr};
 
 use api::{
     cookie::get_from_cookie,
-    transactions::{handle_transaction_post, handle_transactions_get},
+    transactions::{
+        handle_transaction_from_bank_post, handle_transaction_post, handle_transactions_get,
+    },
     user::{handle_user_get, handle_users_get},
 };
 use core::{
@@ -52,6 +54,10 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
             print_request_data(&req);
             return match req.uri().path() {
                 "/transaction" => match handle_transaction_post(req).await {
+                    Ok(response) => Ok(response),
+                    Err(error) => Ok(internal_server_error(error.msg)),
+                },
+                "/transaction_from_bank" => match handle_transaction_from_bank_post(req).await {
                     Ok(response) => Ok(response),
                     Err(error) => Ok(internal_server_error(error.msg)),
                 },
