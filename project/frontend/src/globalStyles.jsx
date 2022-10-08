@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
     max-width: 100%;
     overflow-x: hidden;
     font-family: Montserrat;
+    background: #F1F6F9;
 }
 
 ${'' /* @font-face {
