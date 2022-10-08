@@ -12,11 +12,28 @@ class GlobalStore  {
         { name: "ЛЕНТА", active: false },
     ];
 
+    tabsProfile = [
+        { name: "Достижения", active: true},
+        { name: "МОИ NFT", active: false},
+        { name: "ПОКУПКИ", active: false},
 
-    handleChange = (id) => {
-        this.tabs.map(tab => tab.active = false);
-        this.tabs[id].active = true;
+    ]
+
+
+    handleChange = (id, text) => {
+        console.log(text)
+        if (text === "main") {
+            this.tabs.map(tab => tab.active = false);
+            this.tabs[id].active = true;
+        }
+
+        if (text === "profile") {
+            this.tabsProfile.map(tab => tab.active = false);
+            this.tabsProfile[id].active = true
+        }
+        
     }
+
 
     
 }
