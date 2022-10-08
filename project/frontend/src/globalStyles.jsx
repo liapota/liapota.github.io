@@ -13,7 +13,6 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     background-color: #F1F6F9;
     max-width: 100%;
-    overflow-x: hidden;
     font-family: Montserrat;
     background: #F1F6F9;
     color: #092896;
