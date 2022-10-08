@@ -1,6 +1,8 @@
 import React from "react";
 
 import { observer } from "mobx-react-lite";
+import { DisplayWrapper, EventCardsWrapper } from "./Display.styles";
+import EventCard from "./EventCard";
 
 
 const UsersBar = () => {
@@ -8,9 +10,15 @@ const UsersBar = () => {
 
   
   return (
-    <>
-      <div>Список пользователей</div>
-    </>
+    <DisplayWrapper>
+
+      <EventCardsWrapper>
+          <EventCard/>
+          <EventCard/>
+          <EventCard/>
+          <EventCard/>
+      </EventCardsWrapper>
+    </DisplayWrapper>
   );
 };
 

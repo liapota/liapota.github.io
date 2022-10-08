@@ -3,16 +3,18 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 
   #page {
+      
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    ${'' /* overflow: hidden; */}
+    overflow-x: hidden;
     font-size: 12px;
 
   }
   html, body {
+    background-color: #F1F6F9;
     max-width: 100%;
-    ${'' /* overflow-x: hidden; */}
+    overflow-x: hidden;
     font-family: Montserrat;
 }
 
