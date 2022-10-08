@@ -17,6 +17,7 @@ WORKDIR /blockchain
 COPY --from=build /blockchain/target/release/api .
 COPY --from=build /blockchain/target/release/blago .
 COPY --from=build /blockchain/tasks.crontab .
+COPY --from=build /blockchain/bankchain .
 
 # set the startup command to run your binary
 RUN apt-get update && apt-get install -y cron
