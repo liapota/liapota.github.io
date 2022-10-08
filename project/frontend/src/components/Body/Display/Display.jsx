@@ -16,15 +16,14 @@ const Display = () => {
     <DisplayWrapper>
       {activeIndex === 0 && 
         <Shop/>
-
       }
       {
         activeIndex === 1 && 
-        <Profile />
+        <Events />
       }
       {
         activeIndex === 2 &&
-      <Events />
+        <Profile />
 
       }
     </DisplayWrapper>

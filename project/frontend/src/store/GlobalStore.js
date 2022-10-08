@@ -7,21 +7,20 @@ class GlobalStore  {
     }
 
     tabs = [
-        { name: "МАГАЗИН", active: true },
+        { name: "МАГАЗИН", active: false },
+        { name: "ЛЕНТА", active: true },
         { name: "ПРОФИЛЬ", active: false },
-        { name: "ЛЕНТА", active: false },
     ];
 
     tabsProfile = [
-        { name: "Достижения", active: true},
-        { name: "МОИ NFT", active: false},
+        { name: "Достижения", active: false},
+        { name: "МОИ NFT", active: true},
         { name: "ПОКУПКИ", active: false},
 
     ]
 
 
     handleChange = (id, text) => {
-        console.log(text)
         if (text === "main") {
             this.tabs.map(tab => tab.active = false);
             this.tabs[id].active = true;
