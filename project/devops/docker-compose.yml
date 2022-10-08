@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    networks:
+      - postgres_network
+
+  heartbeat-backend-api:
+    container_name: backend-api
+    image: "khedstudio/heartbeat-backend"
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 80:80
+    networks:
+      - postgres_network
+        
+networks:
+  postgres_network:
