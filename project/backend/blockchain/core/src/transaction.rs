@@ -59,16 +59,16 @@ pub async fn create_transaction_tables_if_not_exists() -> Result<(), CoreError> 
 
 #[derive(Serialize)]
 pub struct ApiCoinTransaction {
-    fromPrivateKey: String,
-    toPublicKey: String,
-    amount: f32,
+    pub fromPrivateKey: String,
+    pub toPublicKey: String,
+    pub amount: f32,
 }
 
 #[derive(Serialize)]
 pub struct ApiNftTransaction {
-    fromPrivateKey: String,
-    toPublicKey: String,
-    tokenId: u64,
+    pub fromPrivateKey: String,
+    pub toPublicKey: String,
+    pub tokenId: u64,
 }
 
 #[derive(Deserialize)]
