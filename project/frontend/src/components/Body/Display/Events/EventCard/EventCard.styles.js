@@ -26,6 +26,7 @@ export const ImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 10px;
 `;
 
@@ -52,16 +53,14 @@ export const DescriptionEvent = styled.div`
 `;
 
 export const AgreeButton = styled.div`
+  cursor: pointer;
   position: absolute;
   background-color: white;
-  opacity: 0.4;
+  opacity: 0.8;
   display: none;
   border-radius: 10px;
   font-size: 40px;
   font-weight: 600;
-  width: 100%;
-  height: 100%;
-  max-width: 500px;
-  max-height: 250px;
+  padding: 20px;
   text-align: center;
 `;
