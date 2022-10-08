@@ -3,9 +3,13 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import {
     ProfileTabsWrapper,
-    ProfileTab
+    ProfileTab,
+    ProfileMain,
+    NFTWrapper,
 } from "./Profile.styles"
 import { useStore } from "../../../../store";
+import NFTCreateComponents from "./ProfileComponents/NFTCreate";
+import NFTDefaultComponents from "./ProfileComponents/NFTDefault";
 
 const Profile = () => {
     const { globalStore } = useStore();
@@ -23,6 +27,16 @@ const Profile = () => {
            })}
 
         </ProfileTabsWrapper>
+
+        <ProfileMain>
+            <NFTWrapper>
+                <NFTCreateComponents></NFTCreateComponents>
+            </NFTWrapper>
+            <NFTWrapper>
+                <NFTDefaultComponents></NFTDefaultComponents>
+            </NFTWrapper>
+            
+        </ProfileMain>
         </>
     )
 
