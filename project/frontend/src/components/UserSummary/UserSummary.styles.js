@@ -24,13 +24,37 @@ export const UserLevelStyles = styled.div`
   flex-direction: column;
   padding: 20px;
   width: 350px;
-
+  margin: 70px 20px 20px;
 `
 export const UserLogoStyles = styled.div`
 
 `
 export const NFTUserStyles = styled.div`
 
+`
+export const UserName = styled.div`
+  margin-bottom: 15px;
+  font-weight: bold;
+`
+
+export const LevelProgress = styled.span`
+position: relative;
+bottom: 30px;
+left: 150px;
+font-weight: bold;
+`
+export const LevelTimesStyles = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #00ABFF;
+  position: absolute;
+  margin-top: 25px;
+  border: 3px solid rgba(9, 40, 150, 1);
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 `
 
 export const Level = styled.div`

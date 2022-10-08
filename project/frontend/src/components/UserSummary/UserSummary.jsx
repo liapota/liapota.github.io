@@ -8,7 +8,10 @@ import { Summary,
   UserLevelStyles,
   UserLogo,
   Level,
-  UnderLevel
+  UnderLevel,
+  LevelTimesStyles,
+  UserName,
+  LevelProgress,
  } from "./UserSummary.styles";
  import userLogo from "../../img/logo.png";
  import hft from "../../img/nft.png"
@@ -21,12 +24,18 @@ const UserSummary = () => {
       <Summary>
         <UserLogoStyles><UserLogo src={userLogo} width="150" height="150"></UserLogo></UserLogoStyles>
         <UserLevelStyles>
-          <div>
+          <UserName>
             Лупа Пуповна
-          </div>
+          </UserName>
+          <LevelTimesStyles>
+            10
+          </LevelTimesStyles>
+          <div>
           <Level>
-            <UnderLevel>250/500</UnderLevel>
+            <UnderLevel></UnderLevel>
           </Level>
+          </div>
+          <LevelProgress>350/500</LevelProgress>
         </UserLevelStyles>
         <NFTUserStyles><img src={hft}></img></NFTUserStyles>
       </Summary>
