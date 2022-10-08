@@ -4,11 +4,13 @@ import TempUserStore from "./tempUserStore";
 import TimelineStore from "./timelineStore";
 import TransStore from "./transStore";
 import UsersListStore from "./usersListStore";
+import GlobalStore from "./GlobalStore";
 
 import UserStore from "./userStore";
 
 class Store {
   constructor() {
+    this.globalStore = new GlobalStore(this);
     this.userStore = new ShopStore(this);
     this.userStore = new TempUserStore(this);
     this.userStore = new TimelineStore(this);
