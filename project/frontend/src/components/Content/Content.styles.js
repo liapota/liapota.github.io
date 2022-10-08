@@ -11,17 +11,4 @@ export const ContentWrapper = styled.div`
   justify-content: center;
 `;
 
-export const GrayContentWrapper = styled.div`
-  min-height: 600px;
-  height: 100%;
-  background-color: #f8f8f8;
-`;
 
-export const LightContentWrapper = styled.div`
-  display: flex;
-
-  max-width: 1140px;
-
-  margin: auto;
-  justify-content: center;
-`;
