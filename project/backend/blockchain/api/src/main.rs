@@ -1,4 +1,4 @@
-use std::{net::SocketAddr, convert::Infallible};
+use std::{convert::Infallible, net::SocketAddr};
 
 use api::{
     cookie::get_from_cookie,
@@ -21,7 +21,7 @@ fn print_request_data(req: &Request<Body>) {
             "Pick user id from 'x-user-id': {}",
             user_id.to_str().unwrap()
         );
-    } else if let Some(user_id) = guest_user_cookie(req.headers()) {
+    } else if let Some(user_id) = get_from_cookie(req.headers(), "user") {
         println!("Pick user from 'Cookie: user': {}", &user_id);
     }
 }
@@ -32,12 +32,18 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
             println!("GET {}", req.uri().path());
             print_request_data(&req);
             match req.uri().path() {
-                "/transactions" => {
-                    match handle_transactions_get(req.headers()).await {
-                        Ok(response) => Ok(response),
-                        Err(error) => Ok(internal_server_error(error.msg)),
-                    }
-                }
+                "/transactions" => match handle_transactions_get(req.headers()).await {
+                    Ok(response) => Ok(response),
+                    Err(error) => Ok(internal_server_error(error.msg)),
+                },
+                "/user" => match handle_user_get(req.headers()).await {
+                    Ok(response) => Ok(response),
+                    Err(error) => Ok(internal_server_error(error.msg)),
+                },
+                "/users" => match handle_users_get(req.headers()).await {
+                    Ok(response) => Ok(response),
+                    Err(error) => Ok(internal_server_error(error.msg)),
+                },
                 _ => Ok(not_found()),
             }
         }
@@ -45,23 +51,6 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
             println!("POST {}", req.uri().path());
             print_request_data(&req);
             return match req.uri().path() {
-                "/cart" => {
-                    return match handle_cart_post(
-                        req.headers(),
-                        req.uri().query().unwrap_or_default(),
-                    )
-                    .await
-                    {
-                        Ok(response) => Ok(response),
-                        Err(error) => Ok(internal_server_error(error.msg)),
-                    }
-                }
-                "/person" => {
-                    return match handle_person_post(req).await {
-                        Ok(response) => Ok(response),
-                        Err(error) => Ok(internal_server_error(error.msg)),
-                    }
-                }
                 _ => Ok(not_found()),
             };
         }
@@ -69,17 +58,6 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
             println!("DELETE {}", req.uri().path());
             print_request_data(&req);
             return match req.uri().path() {
-                "/cart" => {
-                    return match handle_cart_delete(
-                        req.headers(),
-                        req.uri().query().unwrap_or_default(),
-                    )
-                    .await
-                    {
-                        Ok(response) => Ok(response),
-                        Err(error) => Ok(internal_server_error(error.msg)),
-                    }
-                }
                 _ => Ok(not_found()),
             };
         }
@@ -87,17 +65,6 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
             println!("PATCH {}", req.uri().path());
             print_request_data(&req);
             return match req.uri().path() {
-                "/cart" => {
-                    return match handle_cart_patch(
-                        req.headers(),
-                        req.uri().query().unwrap_or_default(),
-                    )
-                    .await
-                    {
-                        Ok(response) => Ok(response),
-                        Err(error) => Ok(internal_server_error(error.msg)),
-                    }
-                }
                 _ => Ok(not_found()),
             };
         }
