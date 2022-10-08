@@ -14,7 +14,6 @@ export const ShopProductWrapper = styled.div`
   border-radius: 10px;
 `;
 export const ImgWrapper = styled.div`
-
   position: relative;
   width: 100%;
   height: 100%;
@@ -31,11 +30,12 @@ export const ImgWrapper = styled.div`
 `;
 
 export const ImageText = styled.div`
-position: absolute;
+  cursor: pointer;
+  position: absolute;
   display: flex;
   justify-content: center;
   background-color: white;
-  opacity: 0.4;
+  opacity: 0.3;
   display: none;
   border-radius: 10px;
   font-size: 30px;
