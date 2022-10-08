@@ -5,7 +5,7 @@ export const UserButtonWrapper = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  min-width: 200px;
+  max-width: 200px;
   justify-content: center;
   margin-bottom: 10px;
   cursor: pointer;
