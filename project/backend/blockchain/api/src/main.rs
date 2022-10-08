@@ -2,11 +2,11 @@ use std::{convert::Infallible, net::SocketAddr};
 
 use api::{
     cookie::get_from_cookie,
-    transactions::handle_transactions_get,
+    transactions::{handle_transactions_get, handle_transaction_post},
     user::{handle_user_get, handle_users_get},
 };
 use core::{
-    response::{self, internal_server_error, not_allowed, not_found},
+    response::{internal_server_error, not_allowed, not_found},
     user::create_user_table_if_not_exists,
 };
 use hyper::{
@@ -51,6 +51,10 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
             println!("POST {}", req.uri().path());
             print_request_data(&req);
             return match req.uri().path() {
+                "/transaction" => match handle_transaction_post(&req).await {
+                    Ok(response) => Ok(response),
+                    Err(error) => Ok(internal_server_error(error.msg)),
+                },
                 _ => Ok(not_found()),
             };
         }
