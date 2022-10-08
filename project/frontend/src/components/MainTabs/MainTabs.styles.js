@@ -5,7 +5,9 @@ export const MainTabsWrapper = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
+  text-align: center;
   max-height: 75px;
+  margin-top: 20px;
 `;
 
 export const TabsWrapper = styled.div`
@@ -19,6 +21,8 @@ export const TabsWrapper = styled.div`
 `;
 
 export const Tab = styled.div`
+display: flex;
+justify-content: center;
 cursor: pointer;
   border-radius: 10px;
   height: 100%;
