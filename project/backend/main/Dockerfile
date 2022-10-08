@@ -3,7 +3,10 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Heartbeat.WebAPI/Heartbeat.WebAPI.csproj", "Heartbeat.WebAPI/"]
+COPY ["/Heartbeat.WebAPI/Heartbeat.WebAPI.csproj", "Heartbeat.WebAPI/"]
+COPY ["/Heartbeat.Persistence/Heartbeat.Persistence.csproj", "Heartbeat.Persistence/"]
+COPY ["/Heartbeat.Domain/Heartbeat.Domain.csproj", "Heartbeat.Domain/"]
+COPY ["/Heartbeat.Application/Heartbeat.Application.csproj", "Heartbeat.Application/"]
 RUN dotnet restore "Heartbeat.WebAPI/Heartbeat.WebAPI.csproj"
 COPY . .
 WORKDIR "/src/Heartbeat.WebAPI"
