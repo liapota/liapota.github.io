@@ -4,14 +4,29 @@ import { observer } from "mobx-react-lite";
 import { MainTabsWrapper, Tab, Tabs, TabsWrapper } from "./MainTabs.styles";
 
 const MainTabs = () => {
-  const [active, setActive] = useState(1);
+  const [activeText, setActiveText] = useState(["МАГАЗИН", "ПРОФИЛЬ", "ЛЕНТА"]);
+
+  const leftTabHandler = () => {
+    var array = activeText.slice();
+    var el = array.pop();
+    array.unshift(el);
+    setActiveText(array);
+  };
+
+  const rightTabHandler = () => {
+    var array = activeText.slice();
+    var el = array.shift();
+    array.push(el);
+    setActiveText(array);
+  };
+
   return (
     <>
       <MainTabsWrapper>
         <TabsWrapper>
-          <Tab active={0 === active} onClick={()=>setActive(0)}>МАГАЗИН</Tab>
-          <Tab active={1 === active} onClick={()=>setActive(1)}>ЛЕНТА</Tab>
-          <Tab active={2 === active} onClick={()=>setActive(2)}>ПРОФИЛЬ</Tab>
+          <Tab onClick={leftTabHandler}>{activeText[0]}</Tab>
+          <Tab active>{activeText[1]}</Tab>
+          <Tab onClick={rightTabHandler}>{activeText[2]}</Tab>
         </TabsWrapper>
       </MainTabsWrapper>
     </>

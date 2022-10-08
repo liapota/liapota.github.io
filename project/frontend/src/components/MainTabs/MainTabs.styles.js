@@ -13,8 +13,9 @@ export const TabsWrapper = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   max-width: 820px;
+  background-color: aliceblue;
 `;
 
 export const Tab = styled.div`
@@ -28,6 +29,7 @@ cursor: pointer;
 
   background-color: ${(props) => (props?.active ? "white" : "#B7C0DC")};
   color: ${(props) => (props?.active ? "#00ABFF" : "#092896")};
-  min-height: ${(props) => (props?.active ? "75px" : "60px")};
+  min-height: ${(props) => (props?.active ? "70px" : "60px")};
   font-size: ${(props) => (props?.active ? "36px" : "32px")};
+  font-weight: ${(props) => (props?.active ? "500" : "600")};
 `;
