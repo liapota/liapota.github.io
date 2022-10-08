@@ -8,6 +8,7 @@ const MainTabs = () => {
   const { globalStore } = useStore();
   const { tabs, handleChange } = globalStore;
 
+
   return (
     <>
       <MainTabsWrapper>
@@ -17,7 +18,7 @@ const MainTabs = () => {
               <Tab 
                 id={index}
                 active={tab.active}
-                onClick={()=>handleChange(index)}>{tab.name}</Tab>
+                onClick={()=>handleChange(index, "main")}>{tab.name}</Tab>
             )
           })}
         </TabsWrapper>
