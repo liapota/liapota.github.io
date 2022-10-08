@@ -13,8 +13,8 @@ use crate::{cookie::get_from_cookie, handle::HandleResult};
 
 pub struct User {
     pub id: String,
-    public_key: String,
-    private_key: String,
+    pub public_key: String,
+    pub private_key: String,
 }
 
 pub struct UserError {
@@ -54,16 +54,20 @@ impl fmt::Display for UserError {
 }
 
 impl User {
+    pub async fn from_id(id: &str) -> Result<Self, UserError> {
+        match get_user_key_pair(id).await {
+            Ok(key_pair) => Ok(Self {
+                id: id.to_string(),
+                public_key: key_pair.publicKey.clone(),
+                private_key: key_pair.privateKey.clone(),
+            }),
+            Err(error) => Err(UserError::core_error(error)),
+        }
+    }
+
     pub async fn from(headers: &HeaderMap<HeaderValue>) -> Result<Self, UserError> {
         match get_from_cookie(headers, "user") {
-            Some(id) => match get_user_key_pair(id.as_str()).await {
-                Ok(key_pair) => Ok(User {
-                    id,
-                    public_key: key_pair.publicKey.clone(),
-                    private_key: key_pair.privateKey.clone(),
-                }),
-                Err(error) => Err(UserError::core_error(error)),
-            },
+            Some(id) => Self::from_id(id.as_str()).await,
             None => Err(UserError::not_allowed()),
         }
     }
