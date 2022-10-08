@@ -7,14 +7,13 @@ using Heartbeat.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(
-    options =>
-        options.AddDefaultPolicy(builder =>
-        {
-            builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-        }));
+builder.Services.AddCors(options =>
+    options.AddPolicy("allow",
+        builder =>
+            builder.WithMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                .WithOrigins("http://localhost", "http://localhost:3000")
+                .AllowCredentials()
+                .AllowAnyHeader()));
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddAutoMapper(config =>
@@ -41,7 +40,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseCors();
+app.UseCors("allow");
 
 app.UseMiddleware<CapAuthenticationMiddleware>();
 
