@@ -6,14 +6,7 @@ export const DisplayWrapper = styled.div`
   height: 100%;
   max-width: 600px;
   min-height: 800px;
-  background-color: white;
   margin: 0 30px;
 `;
 
-export const EventCardsWrapper = styled.div`
-  padding: 20px 20px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-`;
+

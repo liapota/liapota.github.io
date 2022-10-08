@@ -1,25 +1,17 @@
 import React from "react";
 
 import { observer } from "mobx-react-lite";
-import { DisplayWrapper, EventCardsWrapper } from "./Display.styles";
-import EventCard from "./EventCard";
+import { DisplayWrapper } from "./Display.styles";
+import Events from "./Events";
+import Shop from "./Shop";
 
-
-const UsersBar = () => {
-  
-
-  
+const Display = () => {
   return (
     <DisplayWrapper>
-
-      <EventCardsWrapper>
-          <EventCard/>
-          <EventCard/>
-          <EventCard/>
-          <EventCard/>
-      </EventCardsWrapper>
+      {/* <Events /> */}
+      <Shop/>
     </DisplayWrapper>
   );
 };
 
-export default observer(UsersBar);
+export default observer(Display);

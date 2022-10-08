@@ -16,6 +16,8 @@ const Body = () => {
 
       <UsersBar/>
       <Display/>
+
+      
       <TransBar/>
     </BodyWrapper>
   );
