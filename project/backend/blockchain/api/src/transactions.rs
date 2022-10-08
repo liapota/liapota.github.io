@@ -1,16 +1,12 @@
 use core::{
     balance::Balance,
-    query::parse_query,
     response::{bad_request, not_allowed, not_implemented},
     transaction::{transfer_dr, transfer_matic, ApiCoinTransaction},
 };
-use lazy_static::lazy_static;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use std::{
-    fmt::format,
     fs::File,
     io::{prelude::*, BufReader},
-    sync::Mutex,
 };
 
 use hyper::{body::to_bytes, header, http::HeaderValue, Body, HeaderMap, Request, Response};
@@ -90,7 +86,7 @@ impl BankChain {
                 })
                 .await
                 {
-                    Ok(result) => {}
+                    Ok(_result) => {}
                     Err(error) => return Err(format!("{}", error)),
                 },
                 Err(error) => return Err(format!("{}", error)),
@@ -167,6 +163,51 @@ pub async fn handle_transaction_post(mut req: Request<Body>) -> HandleResult {
             },
             Err(error) => Ok(bad_request(format!("Bad body: {}", error))),
         },
-        Err(error) => Ok(not_allowed()),
+        Err(_error) => Ok(not_allowed()),
+    }
+}
+
+pub async fn handle_transaction_from_bank_post(mut req: Request<Body>) -> HandleResult {
+    match to_bytes(req.body_mut()).await {
+        Ok(bytes) => match serde_json::from_slice(&bytes) {
+            Ok(result) => {
+                let info: TransactionInfo = result;
+                match User::from_id(info.to.as_str()).await {
+                    Ok(to_user) => match BankChain::load().get_bank_keys().await {
+                        Ok(keys) => match transfer_dr(ApiCoinTransaction {
+                            fromPrivateKey: keys.private.clone(),
+                            toPublicKey: to_user.public_key.clone(),
+                            amount: info.amount,
+                        })
+                        .await
+                        {
+                            Ok(_result) => match transfer_matic(ApiCoinTransaction {
+                                fromPrivateKey: keys.private,
+                                toPublicKey: to_user.public_key.clone(),
+                                amount: GAS_AMOUNT,
+                            })
+                            .await
+                            {
+                                Ok(_result) => Ok(Response::builder()
+                                    .header("Content-Type", "plain/text; charset=utf-8")
+                                    .header(header::ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                                    .header(header::ACCESS_CONTROL_ALLOW_HEADERS, "*")
+                                    .body("ok".into())
+                                    .unwrap()),
+                                Err(_error) => Ok(not_allowed()),
+                            },
+                            Err(_error) => Ok(not_allowed()),
+                        },
+                        Err(_error) => panic!("Not enough bank keys"),
+                    },
+                    Err(_error) => Ok(not_allowed()),
+                }
+            }
+            Err(error) => Ok(bad_request(format!(
+                "Cannot parse transaction info json: {}",
+                error
+            ))),
+        },
+        Err(error) => Ok(bad_request(format!("Bad body: {}", error))),
     }
 }

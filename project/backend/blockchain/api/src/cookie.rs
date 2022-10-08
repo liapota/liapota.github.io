@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
-use hyper::{HeaderMap, http::HeaderValue};
-
+use hyper::{http::HeaderValue, HeaderMap};
 
 fn cookie_parse(cookie_str: &str) -> HashMap<String, String> {
     let mut result: HashMap<String, String> = HashMap::new();
@@ -24,9 +23,9 @@ pub fn get_from_cookie(headers: &HeaderMap<HeaderValue>, key: &str) -> Option<St
             let cookie = cookie_parse(cookie_str.to_str().unwrap());
             match cookie.get(key) {
                 Some(value) => Some(value.clone()),
-                None => None
+                None => None,
             }
-        },
-        None => None
+        }
+        None => None,
     }
 }

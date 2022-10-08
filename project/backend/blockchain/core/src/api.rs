@@ -2,10 +2,8 @@ use hyper::body::HttpBody as _;
 use hyper::{client::HttpConnector, Client, Uri};
 use hyper::{Body, Method, Request};
 use hyper_tls::HttpsConnector;
-use std::io::{BufRead, Read};
 
 use crate::error::CoreError;
-use crate::response;
 
 const BASE_URI: &str = "https://hackathon.lsp.team/hk";
 pub const BALANCE: &str = "/v1/wallets/%/balance";

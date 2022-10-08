@@ -100,10 +100,7 @@ pub async fn get_user_exp(user_id: &str) -> Result<u64, CoreError> {
     match connect_db().await {
         Ok(client) => {
             match client
-                .query(
-                    "SELECT exp FROM user_wallet WHERE id = $1;",
-                    &[&user_id],
-                )
+                .query("SELECT exp FROM user_wallet WHERE id = $1;", &[&user_id])
                 .await
             {
                 Ok(rows) => match rows.is_empty() {
