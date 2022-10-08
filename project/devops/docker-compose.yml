@@ -12,7 +12,7 @@ services:
 
   heartbeat-backend-api:
     container_name: backend-api
-    image: "khedstudio/heartbeat-backend"
+    image: "khedstudio/heartbeat-backend:latest"
     restart: always
     depends_on:
       - postgres

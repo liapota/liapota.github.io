@@ -1,4 +1,5 @@
 import { makeAutoObservable, configure } from "mobx";
+import apiMain from "../api/apiMain";
 
 class TimelineStore {
   constructor(rootStore) {
@@ -9,9 +10,57 @@ class TimelineStore {
     });
   }
 
+  id = 0;
+  title = "";
+  creator_id = 0;
+  description = "";
+  start = "";
+  duration = ""; // ex. "02:00:00" - 2h
+  reward = "";
+  is_member = false;
 
-  
+  setId = (result) => {
+    this.id = result;
+  };
+  setTitle = (result) => {
+    this.title = result;
+  };
+  setDescription = (result) => {
+    this.description = result;
+  };
+  setStart = (result) => {
+    this.start = result;
+  };
+  setDuration = (result) => {
+    this.duration = result;
+  };
+  setReward = (result) => {
+    this.reward = result;
+  };
+  setCreatorId = (result) => {
+    this.creatorId = result;
+  };
+  setIsMember = (result) => {
+    this.isMember = result;
+  };
 
+  getEventsHandler = () => {
+    apiMain
+      .getEvents()
+      .then(({ data }) => {
+        console.log(data);
+        this.setId(data.id);
+        this.setTitle(data.title);
+        this.setDescription(data.description);
+        this.setDuration(data.duration);
+        this.setReward(data.reward);
+        this.setCreatorId(data.creator_id);
+        this.setIsMember(data.is_member);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 }
 
 export default TimelineStore;
