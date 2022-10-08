@@ -4,9 +4,9 @@ import { observer } from "mobx-react-lite";
 import {
   CreateProductWrapper,
   ImageText,
-} from "./CreateProduct.styles";
+} from "./createNFT.styles";
 
-const CreateProduct = () => {
+const CreateNFT = () => {
   return (
     <CreateProductWrapper>
         <ImageText className="img-text">+</ImageText>
@@ -14,4 +14,4 @@ const CreateProduct = () => {
   );
 };
 
-export default observer(CreateProduct);
+export default observer(CreateNFT);
