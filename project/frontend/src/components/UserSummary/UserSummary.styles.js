@@ -45,6 +45,7 @@ left: 150px;
 font-weight: bold;
 `
 export const LevelTimesStyles = styled.div`
+font-weight: bold;
   width: 50px;
   height: 50px;
   border-radius: 50%;
