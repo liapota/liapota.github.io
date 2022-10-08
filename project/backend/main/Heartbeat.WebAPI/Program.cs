@@ -9,11 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(
     options =>
-        options.AddPolicy("AllowAllOrigins",
-            builder =>
-                builder.WithMethods("GET", "POST", "PUT", "DELETE")
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()));
+        options.AddDefaultPolicy(builder =>
+        {
+            builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
+        }));
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddAutoMapper(config =>

@@ -11,11 +11,11 @@ import UserStore from "./userStore";
 class Store {
   constructor() {
     this.globalStore = new GlobalStore(this);
-    this.userStore = new ShopStore(this);
-    this.userStore = new TempUserStore(this);
-    this.userStore = new TimelineStore(this);
-    this.userStore = new TransStore(this);
-    this.userStore = new UsersListStore(this);
+    this.shopStore = new ShopStore(this);
+    this.tempUserStore = new TempUserStore(this);
+    this.timelineStore = new TimelineStore(this);
+    this.transStore = new TransStore(this);
+    this.usersListStore = new UsersListStore(this);
     this.userStore = new UserStore(this);
   }
 }
