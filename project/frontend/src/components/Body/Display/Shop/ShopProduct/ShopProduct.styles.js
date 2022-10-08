@@ -35,7 +35,7 @@ export const ImageText = styled.div`
   display: flex;
   justify-content: center;
   background-color: white;
-  opacity: 0.8;
+  opacity: 0.3;
   display: none;
   border-radius: 10px;
   font-size: 30px;
