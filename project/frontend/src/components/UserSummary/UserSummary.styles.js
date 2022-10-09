@@ -30,7 +30,11 @@ export const UserLogoStyles = styled.div`
 
 `
 export const NFTUserStyles = styled.div`
-
+  position: relative;
+  top: 25px;
+  color: gold;
+  font-weight: bold;
+  font-size: 30px;
 `
 export const UserName = styled.div`
   margin-bottom: 15px;

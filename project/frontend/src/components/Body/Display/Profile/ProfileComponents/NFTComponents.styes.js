@@ -12,6 +12,5 @@ export const CardWrapper = styled.div`
     font-weight: bold;
     margin: 20px;
     padding: 10px;
-    .img {
-    }
+    border: ${(props) => (props?.profile ? "3px solid" : "none")}
 `

@@ -37,7 +37,7 @@ const UserSummary = () => {
           </div>
           <LevelProgress>350/500</LevelProgress>
         </UserLevelStyles>
-        <NFTUserStyles><img src={hft}></img></NFTUserStyles>
+        <NFTUserStyles>100 R</NFTUserStyles>
       </Summary>
     </UserSummaryWrapper>
   );
