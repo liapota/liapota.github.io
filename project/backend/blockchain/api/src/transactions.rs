@@ -1,19 +1,20 @@
 use core::{
     balance::Balance,
-    response::not_implemented,
-    transaction::{transfer_dr, ApiCoinTransaction},
+    response::{bad_request, not_allowed, not_implemented},
+    transaction::{transfer_dr, transfer_matic, ApiCoinTransaction},
 };
-use lazy_static::lazy_static;
+use serde::Deserialize;
 use std::{
-    fmt::format,
     fs::File,
     io::{prelude::*, BufReader},
-    sync::Mutex,
 };
 
-use hyper::{http::HeaderValue, Body, HeaderMap, Request};
+use hyper::{body::to_bytes, header, http::HeaderValue, Body, HeaderMap, Request, Response};
 
-use crate::handle::HandleResult;
+use crate::{
+    handle::{HandleResult, ResponseError},
+    user::User,
+};
 
 struct KeyPair {
     pub public: String,
@@ -30,6 +31,7 @@ impl Clone for KeyPair {
 }
 
 const MIN_BANK_METIC_AMOUNT: f32 = 0.035;
+const GAS_AMOUNT: f32 = 0.01;
 
 struct BankChain {
     pub pairs: Vec<KeyPair>,
@@ -67,7 +69,7 @@ impl BankChain {
         while index < self.pairs.len() {
             match Balance::from(&self.pairs[index].public).await {
                 Ok(balance) => {
-                    if (balance.maticAmount > MIN_BANK_METIC_AMOUNT) {
+                    if balance.maticAmount > MIN_BANK_METIC_AMOUNT {
                         break;
                     }
                 }
@@ -84,7 +86,7 @@ impl BankChain {
                 })
                 .await
                 {
-                    Ok(result) => {}
+                    Ok(_result) => {}
                     Err(error) => return Err(format!("{}", error)),
                 },
                 Err(error) => return Err(format!("{}", error)),
@@ -98,15 +100,114 @@ impl BankChain {
     }
 }
 
-lazy_static! {
-    static ref BANK_CHAIN: Mutex<BankChain> = Mutex::new(BankChain::load());
-}
-
 pub async fn handle_transactions_get(headers: &HeaderMap<HeaderValue>) -> HandleResult {
     Ok(not_implemented())
 }
 
-pub async fn handle_transaction_post(req: &Request<Body>) -> HandleResult {
+#[derive(Deserialize)]
+struct TransactionInfo {
+    pub to: String,
+    pub amount: f32,
+}
 
-    Ok(not_implemented())
+pub async fn handle_transaction_post(mut req: Request<Body>) -> HandleResult {
+    match User::from(req.headers()).await {
+        Ok(user) => match to_bytes(req.body_mut()).await {
+            Ok(bytes) => match serde_json::from_slice(&bytes) {
+                Ok(result) => {
+                    let info: TransactionInfo = result;
+                    match User::from_id(info.to.as_str()).await {
+                        Ok(to_user) => match transfer_dr(ApiCoinTransaction {
+                            fromPrivateKey: user.private_key.clone(),
+                            toPublicKey: to_user.public_key.clone(),
+                            amount: info.amount,
+                        })
+                        .await
+                        {
+                            Ok(_result) => {
+                                match BankChain::load().get_bank_keys().await {
+                                    Ok(keys) => {
+                                        match transfer_matic(ApiCoinTransaction {
+                                            fromPrivateKey: keys.private,
+                                            toPublicKey: to_user.public_key.clone(),
+                                            amount: GAS_AMOUNT,
+                                        })
+                                        .await
+                                        {
+                                            Ok(_result) => {}
+                                            Err(error) => {
+                                                println!("Bad matic transfer from bank: {}", error)
+                                            }
+                                        }
+                                    }
+                                    Err(_error) => panic!("Not enough bank keys"),
+                                };
+                                Ok(Response::builder()
+                                    .header("Content-Type", "plain/text; charset=utf-8")
+                                    .header(header::ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                                    .header(header::ACCESS_CONTROL_ALLOW_HEADERS, "*")
+                                    .body("ok".into())
+                                    .unwrap())
+                            }
+                            Err(error) => Err(ResponseError {
+                                msg: format!("Cannot make transfer: {}", error),
+                            }),
+                        },
+                        Err(_error) => Ok(not_allowed()),
+                    }
+                }
+                Err(error) => Ok(bad_request(format!(
+                    "Cannot parse transaction info json: {}",
+                    error
+                ))),
+            },
+            Err(error) => Ok(bad_request(format!("Bad body: {}", error))),
+        },
+        Err(_error) => Ok(not_allowed()),
+    }
+}
+
+pub async fn handle_transaction_from_bank_post(mut req: Request<Body>) -> HandleResult {
+    match to_bytes(req.body_mut()).await {
+        Ok(bytes) => match serde_json::from_slice(&bytes) {
+            Ok(result) => {
+                let info: TransactionInfo = result;
+                match User::from_id(info.to.as_str()).await {
+                    Ok(to_user) => match BankChain::load().get_bank_keys().await {
+                        Ok(keys) => match transfer_dr(ApiCoinTransaction {
+                            fromPrivateKey: keys.private.clone(),
+                            toPublicKey: to_user.public_key.clone(),
+                            amount: info.amount,
+                        })
+                        .await
+                        {
+                            Ok(_result) => match transfer_matic(ApiCoinTransaction {
+                                fromPrivateKey: keys.private,
+                                toPublicKey: to_user.public_key.clone(),
+                                amount: GAS_AMOUNT,
+                            })
+                            .await
+                            {
+                                Ok(_result) => Ok(Response::builder()
+                                    .header("Content-Type", "plain/text; charset=utf-8")
+                                    .header(header::ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                                    .header(header::ACCESS_CONTROL_ALLOW_HEADERS, "*")
+                                    .body("ok".into())
+                                    .unwrap()),
+                                Err(_error) => Ok(not_allowed()),
+                            },
+                            Err(_error) => Ok(not_allowed()),
+                        },
+                        Err(_error) => panic!("Not enough bank keys"),
+                    },
+                    Err(_error) => Ok(not_allowed()),
+                }
+            }
+            Err(error) => Ok(bad_request(format!(
+                "Cannot parse transaction info json: {}",
+                error
+            ))),
+        },
+        Err(error) => Ok(bad_request(format!("Bad body: {}", error))),
+    }
 }

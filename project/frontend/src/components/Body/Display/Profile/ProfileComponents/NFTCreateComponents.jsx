@@ -4,9 +4,9 @@ import { CardWrapper } from "./NFTComponents.styes"
 import defaultNFT from "../../../../../img/defaultNFT.svg"
 
 
-const NFTComponents = ({text, level, active}) => {
+const NFTComponents = ({text, level, active, profile}) => {
     return (
-        <CardWrapper active={active}>
+        <CardWrapper active={active} profile={profile}>
             <img className="img" src={defaultNFT} width="150" height="150"></img>
             <span>{text}</span>
             <span>{level}</span>

@@ -4,9 +4,9 @@ import { observer } from "mobx-react-lite";
 import { CustomImg, PersonData, UserButtonWrapper } from "./UserButton.styles";
 import faceSvg from "../../../../img/face.svg";
 
-const UserButton = () => {
+const UserButton = ({ onClick }) => {
   return (
-    <UserButtonWrapper>
+    <UserButtonWrapper onClick={onClick}>
       <CustomImg src={faceSvg} alt="" />
       <PersonData>Name</PersonData>
       <PersonData>Surname</PersonData>

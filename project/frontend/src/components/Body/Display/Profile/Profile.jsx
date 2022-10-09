@@ -11,7 +11,6 @@ import {
 import { useStore } from "../../../../store";
 import NFTDefaultComponents from "./ProfileComponents";
 import CreateNFT from "./CreateNFT";
-import defaultNFT from "../../../../img/defaultNFT.svg";
 
 const Profile = () => {
   const { globalStore } = useStore();
