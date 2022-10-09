@@ -8,6 +8,7 @@ import {
     PopupFooter
  } from "./Popup.styles";
  import { useStore } from "../../store";
+ import chest from "../../img/chest";
 
 const Popup = ({showPopup}) => {
   
@@ -15,7 +16,8 @@ const Popup = ({showPopup}) => {
     showPopup && (
         <PopupWrapper>
             <PopupHeader>
-
+                <span>Чё-та</span>
+                <img src={chest}></img>
             </PopupHeader>
             <PopupMain>
 

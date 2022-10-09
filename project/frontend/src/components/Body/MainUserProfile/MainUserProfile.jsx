@@ -32,7 +32,7 @@ import monk4 from "../../../img/monk4.jpeg";
 
 const MainUserProfile = () => {
     const { globalStore, usersListStore, userStore } = useStore();
-    const { currentUserId } = globalStore;
+    const { currentUserId, handleClick } = globalStore;
     const { members } = usersListStore;
     const { role } = userStore;
     const usersName = members.map(user => user.name);
@@ -73,7 +73,7 @@ const MainUserProfile = () => {
         </UserLevelStyles>
         <NFTUserStyles>100 R</NFTUserStyles>
       <GiveMoneyStyles>
-        <LogoWrapper><img src={handsLogo} width="30" height="30"></img></LogoWrapper>
+        <LogoWrapper><img src={handsLogo} width="30" height="30" ></img></LogoWrapper>
         {role === 0 && <LogoWrapper><img src={seifLogo} width="30" height="30"></img></LogoWrapper>}
       </GiveMoneyStyles>
       </UserMainStyles>
