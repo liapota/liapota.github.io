@@ -52,7 +52,7 @@ async fn create_user_key_pair(user_id: &str) -> Result<UserKeyPair, CoreError> {
                 match connect_db().await {
                     Ok(client) => match client
                         .query(
-                            "INSERT ($1, $2, $3, 0) INTO user_wallet;",
+                            "INSERT INTO user_wallet VALUES ($1, $2, $3, 0);",
                             &[&user_id, &result.privateKey, &result.publicKey],
                         )
                         .await
