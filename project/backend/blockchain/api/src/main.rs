@@ -93,7 +93,7 @@ type TokioResult<T> = std::result::Result<T, Box<dyn std::error::Error + Send + 
 
 #[tokio::main]
 async fn main() -> TokioResult<()> {
-    let addr = SocketAddr::from(([127, 0, 0, 1], 4242));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 4242));
     match create_user_table_if_not_exists().await {
         Ok(()) => {}
         Err(error) => panic!("Cannot create user table: {}", error),
