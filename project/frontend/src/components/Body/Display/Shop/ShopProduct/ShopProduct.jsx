@@ -13,7 +13,7 @@ import {
 } from "./ShopProduct.styles";
 import imgSrc from "../../../../../img/product.png";
 
-const ShopProduct = () => {
+const ShopProduct = (props) => {
   return (
     <ShopProductWrapper>
       <ImgWrapper>
@@ -22,8 +22,8 @@ const ShopProduct = () => {
       </ImgWrapper>
 
       <ProductDescriptionWrapper>
-        <ProductTitle>Наушники</ProductTitle>
-        <ProductPrice>100</ProductPrice>
+        <ProductTitle>{props.name}</ProductTitle>
+        <ProductPrice>{props.price}</ProductPrice>
       </ProductDescriptionWrapper>
     </ShopProductWrapper>
   );

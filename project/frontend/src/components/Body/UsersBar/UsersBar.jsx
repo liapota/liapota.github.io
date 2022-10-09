@@ -16,7 +16,7 @@ const UsersBar = () => {
       <Title>Пользователи</Title>
       <CustomInput placeholder="Поиск" type="text" />
       <UsersWrapper>
-        {members.map((user, index) => {
+        {/* TODO {members.map((user, index) => {
           return (
             <UserButton 
               onClick={() => handleClick(index)}
@@ -26,7 +26,31 @@ const UsersBar = () => {
             ></UserButton>
           )
 
-        })}
+        })} */}
+        <UserButton 
+              onClick={() => handleClick(1)}
+              key={1}
+              name="Peter"
+              surname='Parker'
+            ></UserButton>
+            <UserButton 
+              onClick={() => handleClick(2)}
+              key={1}
+              name="Jhon"
+              surname='Cena'
+            ></UserButton>
+            <UserButton 
+              onClick={() => handleClick(3)}
+              key={1}
+              name="Sylvester"
+              surname='Stallone'
+            ></UserButton>
+            <UserButton 
+              onClick={() => handleClick(4)}
+              key={1}
+              name="Jason"
+              surname='Statham'
+            ></UserButton>
       </UsersWrapper>
     </UsersBarWrapper>
   );
