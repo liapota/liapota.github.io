@@ -21,8 +21,9 @@ import monk3 from "../../img/monk3.jpeg";
 import monk4 from "../../img/monk4.jpeg";
 
 const UserSummary = () => {
-  const { userStore } = useStore();
+  const { userStore, transStore } = useStore();
   const { name, surname } = userStore;
+  const { exp, coins, userId } = transStore;
   const usersLogo = [monk1, monk2, monk2, monk3, monk4, userLogo];
   const randomLogo = (arr) => {
     var rand = Math.floor(Math.random() * arr.length);
@@ -37,16 +38,16 @@ const UserSummary = () => {
             {name} {surname}
           </UserName>
           <LevelTimesStyles>
-            10
+            {5}
           </LevelTimesStyles>
           <div>
           <Level>
             <UnderLevel></UnderLevel>
           </Level>
           </div>
-          <LevelProgress>350/500</LevelProgress>
+          <LevelProgress>{(5+exp/500)}</LevelProgress>
         </UserLevelStyles>
-        <NFTUserStyles>100 R</NFTUserStyles>
+        <NFTUserStyles>{coins+" "} R</NFTUserStyles>
       </Summary>
     </UserSummaryWrapper>
   );

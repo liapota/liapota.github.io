@@ -21,16 +21,16 @@ services:
     networks:
       - postgres_network
 
-  # heartbeat-blockchain:
-  #   container_name: blockchain
-  #   image: "khedstudio/heartbeat-blockchain"
-  #   restart: always
-  #   depends_on:
-  #     - postgres
-  #   ports:
-  #     - 4242:4242
-  #   networks:
-  #     - postgres_network
+  heartbeat-blockchain:
+    container_name: blockchain
+    image: "khedstudio/heartbeat-blockchain"
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 4242:4242
+    networks:
+      - postgres_network
         
 networks:
   postgres_network:
