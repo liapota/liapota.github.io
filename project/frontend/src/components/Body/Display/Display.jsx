@@ -13,10 +13,11 @@ const Display = () => {
   const { globalStore } = store;
   const { tabs } = globalStore;
   const activeIndex = tabs.findIndex((tab) => tab.active);
-  console.log(Boolean(!!activeIndex))
+  const activeTab = tabs.every(tab => tab.active);
   return (
     <DisplayWrapper>
-      {activeIndex === 0 && 
+      {
+        activeIndex === 0 && 
         <Shop/>
       }
       {
@@ -26,12 +27,10 @@ const Display = () => {
       {
         activeIndex === 2 &&
         <Profile />
-
       }
       {
-        !activeIndex && 
+        !activeTab && 
         <MainUserProfile />
-
       }
     </DisplayWrapper>
   );

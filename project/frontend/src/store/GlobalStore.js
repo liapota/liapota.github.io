@@ -19,6 +19,11 @@ class GlobalStore  {
 
     ]
 
+    handleClick = () => {
+        this.tabs.map(tab => tab.active = false);
+    }
+
+
 
     handleChange = (id, text) => {
         if (text === "main") {

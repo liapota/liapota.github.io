@@ -17,10 +17,10 @@ export const ProfileTab = styled.button`
   background-color: aliceblue;
   text-align: center;
   border: solid 1px;
-  border-radius: 10px;
-  background-color: ${(props) => (props?.active ? "white" : "#B7C0DC")};
+  border-radius: 5px;
+  background-color: ${(props) => (props?.active ? "B7C0DC" : "#FFFFFF")};
   color: ${(props) => (props?.active ? "#00ABFF" : "#092896")};
-  min-height: ${(props) => (props?.active ? "50px" : "45px")};
+  min-height: 45px;
   font-size: 20px;
   font-weight: 500;
 `;
