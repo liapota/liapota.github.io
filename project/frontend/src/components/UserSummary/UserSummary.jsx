@@ -38,16 +38,16 @@ const UserSummary = () => {
             {name} {surname}
           </UserName>
           <LevelTimesStyles>
-            {5}
+            {10}
           </LevelTimesStyles>
           <div>
           <Level>
             <UnderLevel></UnderLevel>
           </Level>
           </div>
-          <LevelProgress>{(5+exp/500)}</LevelProgress>
+          <LevelProgress>40/100</LevelProgress>
         </UserLevelStyles>
-        <NFTUserStyles>{coins+" "} R</NFTUserStyles>
+        <NFTUserStyles>100 R</NFTUserStyles>
       </Summary>
     </UserSummaryWrapper>
   );

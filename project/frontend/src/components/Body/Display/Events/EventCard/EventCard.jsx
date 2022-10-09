@@ -21,7 +21,7 @@ const UsersBar = ({title, description, id}) => {
         <ImgEvent src={Img} alt="" />
         <AgreeButton className="agree-btn" onClick={() => handleTry(id)}>{is_member ? "Уже участвуешь" : "Участвовать"}</AgreeButton>
       </ImgWrapper>
-      <TitleEvent>{title}</TitleEvent>
+      <TitleEvent>Title</TitleEvent>
       <DescriptionEvent>
        {description}
       </DescriptionEvent>
