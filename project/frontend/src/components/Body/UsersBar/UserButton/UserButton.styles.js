@@ -6,7 +6,7 @@ export const UserButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   max-width: 200px;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 10px;
   cursor: pointer;
 `;

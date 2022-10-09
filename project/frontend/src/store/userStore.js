@@ -5,12 +5,16 @@ class UserStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this);
+    this.init();
     configure({
       enforceActions: "never",
     });
   }
 
-  id = 0;
+  init = () => {
+    this.getUserHandler();
+  }
+  id = 1;
   role = 0;
   name = "";
   surname = "";
@@ -18,7 +22,6 @@ class UserStore {
   teammates = [];
 
   bonuses = [];
-
   setId = (result) => {
     this.id = result;
   };
@@ -45,7 +48,8 @@ class UserStore {
     apiMain
       .getUser(id)
       .then(({ data }) => {
-        console.log(data);
+        this.name = data.name;
+        this.surname = data.surname;
       })
       .catch((err) => {
         console.error(err);
@@ -56,7 +60,6 @@ class UserStore {
     apiMain
       .getBonus()
       .then(({ data }) => {
-        console.log(data);
         this.setBonuses(data);
       })
       .catch((err) => {

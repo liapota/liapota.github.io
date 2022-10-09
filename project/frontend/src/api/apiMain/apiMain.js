@@ -3,7 +3,7 @@ import axios from "axios";
 export class ApiMain {
   constructor() {
     this.client = axios.create();
-    this.client.defaults.baseURL = "http://localhost:5003";
+    this.client.defaults.baseURL = "http://localhost:80";
     this.client.defaults.headers["Access-Control-Allow-Origin"] = "*";
     this.client.defaults.headers["Content-Type"] =
       "application/json;charset=UTF-8";
@@ -20,18 +20,18 @@ export class ApiMain {
   getUsers = () => this.clientWrapper("get", `api/teams`);
   getEvents = () => this.clientWrapper("get", `api/events`);
   closeEvent = (eventId, reward) =>
-    this.clientWrapper("put", `api/event/close`, {
+    this.clientWrapper("put", `api/events/close`, {
       event_id: eventId,
       reward: reward,
     });
 
   subscribeEvent = (eventId) =>
-    this.clientWrapper("put", `api/event/create`, {
+    this.clientWrapper("put", `api/events/create`, {
       event_id: eventId,
     });
 
   createEvent = (creatorId, title, description, start, duration, reward) =>
-    this.clientWrapper("post", `api/event/create`, {
+    this.clientWrapper("post", `api/events/create`, {
       creator_id: creatorId,
       title: title,
       description: description,

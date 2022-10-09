@@ -5,6 +5,7 @@ class TimelineStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this);
+    this.getEventsHandler();
     configure({
       enforceActions: "never",
     });
@@ -18,6 +19,7 @@ class TimelineStore {
   duration = ""; // ex. "02:00:00" - 2h
   reward = "";
   is_member = false;
+  events = [];
 
   setId = (result) => {
     this.id = result;
@@ -49,7 +51,7 @@ class TimelineStore {
     apiMain
       .getEvents()
       .then(({ data }) => {
-        console.log(data);
+        this.events = data;
         this.setId(data.id);
         this.setTitle(data.title);
         this.setDescription(data.description);
@@ -95,6 +97,16 @@ class TimelineStore {
         console.error(err);
       });
   };
+
+  handleTry = (id) => {
+        this.subscribeEventHandler(id);
+        this.getEventsHandler();
+  }
+
+  handleClick = () => {
+    
+  }
+  
 }
 
 export default TimelineStore;

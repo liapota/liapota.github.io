@@ -7,30 +7,23 @@ import UserButton from "./UserButton";
 import { useStore } from "../../../store";
 
 const UsersBar = () => {
-  const { globalStore } = useStore();
+  const { globalStore, usersListStore } = useStore();
   const { handleClick } = globalStore;
-  const users = [
-    {name: "Пупа" },
-    {name: "Лупа" },
-    {name: "Лупа" },
-    {name: "Пупа" },
-    {name: "Пупа" },
-    {name: "Лупа" },
-
-  ];
-
+  const { members } = usersListStore;
 
   return (
     <UsersBarWrapper>
       <Title>Пользователи</Title>
       <CustomInput placeholder="Поиск" type="text" />
       <UsersWrapper>
-        {users.map((user, index) => {
+        {members.map((user, index) => {
           return (
             <UserButton 
-              onClick={handleClick}
-              key={index}
-            >{user.name}</UserButton>
+              onClick={() => handleClick(index)}
+              key={user.id}
+              name={user.name}
+              surname={user.surname}
+            ></UserButton>
           )
 
         })}

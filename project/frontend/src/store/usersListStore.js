@@ -5,6 +5,7 @@ class UsersListStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this);
+    this.init();
     configure({
       enforceActions: "never",
     });
@@ -13,6 +14,9 @@ class UsersListStore {
   id = 0;
   title = "";
   members = [];
+  init = () => {
+    this.getUsersHandler();
+  }
 
   setId = (result) => {
     this.id = result;
@@ -28,10 +32,9 @@ class UsersListStore {
     apiMain
       .getUsers()
       .then(({ data }) => {
-        console.log(data);
         this.setId(data.id);
         this.setTitle(data.title);
-        this.setMembers(data.members);
+        this.setMembers(data[2].members);
       })
       .catch((err) => {
         console.error(err);

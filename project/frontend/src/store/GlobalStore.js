@@ -6,6 +6,8 @@ class GlobalStore  {
         makeAutoObservable(this);
     }
 
+    currentUserId = 0;
+
     tabs = [
         { name: "МАГАЗИН", active: false },
         { name: "ЛЕНТА", active: true },
@@ -19,7 +21,8 @@ class GlobalStore  {
 
     ]
 
-    handleClick = () => {
+    handleClick = (id) => {
+        this.currentUserId = id;
         this.tabs.map(tab => tab.active = false);
     }
 
@@ -47,7 +50,9 @@ class GlobalStore  {
         { name: "МАРКЕТПЛЕЙС", active: false },
     ];
 
-
+    handleTry = (id) => {
+        
+    }
     
 }
 

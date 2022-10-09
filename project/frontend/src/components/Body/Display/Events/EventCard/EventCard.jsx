@@ -10,20 +10,20 @@ import {
   TitleEvent,
 } from "./EventCard.styles";
 import Img from "../../../../../img/event.png";
+import { useStore } from "../../../../../store";
 
-const UsersBar = () => {
+const UsersBar = ({title, description, id}) => {
+  const {timelineStore} = useStore();
+  const { handleTry, is_member } = timelineStore;
   return (
     <EventCardWrapper>
       <ImgWrapper>
         <ImgEvent src={Img} alt="" />
-        <AgreeButton className="agree-btn">Участвовать</AgreeButton>
+        <AgreeButton className="agree-btn" onClick={() => handleTry(id)}>{is_member ? "Уже участвуешь" : "Участвовать"}</AgreeButton>
       </ImgWrapper>
-      <TitleEvent>Заголовок</TitleEvent>
+      <TitleEvent>{title}</TitleEvent>
       <DescriptionEvent>
-        Давно выяснено, что при оценке дизайна и композиции читаемый текст
-        мешает сосредоточиться. Lorem Ipsum используют потому, что тот
-        обеспечивает более или менее стандартное заполнение шаблона, а также
-        реальное распределение букв и пробелов в абзацах, которое{" "}
+       {description}
       </DescriptionEvent>
     </EventCardWrapper>
   );
