@@ -73,7 +73,7 @@ pub struct ApiNftTransaction {
 
 #[derive(Deserialize)]
 pub struct TransactionResult {
-    transactionHash: String,
+    transaction: String,
 }
 
 async fn money_transaction(
@@ -84,10 +84,13 @@ async fn money_transaction(
         .post(path, serde_json::to_string(&info).unwrap().as_str())
         .await
     {
-        Ok(result_str) => match serde_json::from_str(result_str.as_str()) {
-            Ok(result) => Ok(result),
-            Err(error) => Err(CoreError::api_response_parse_error(error)),
-        },
+        Ok(result_str) => {
+            println!("Money transaction response: {}", &result_str);
+            match serde_json::from_str(result_str.as_str()) {
+                Ok(result) => Ok(result),
+                Err(error) => Err(CoreError::api_response_parse_error(error)),
+            }
+        }
         Err(error) => Err(CoreError::api_error(error)),
     }
 }

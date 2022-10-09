@@ -1,6 +1,6 @@
 use core::{
     balance::Balance,
-    response::{bad_request, not_allowed, not_implemented},
+    response::{bad_request, internal_server_error, not_allowed, not_implemented},
     transaction::{transfer_dr, transfer_matic, ApiCoinTransaction},
 };
 use serde::Deserialize;
@@ -31,7 +31,7 @@ impl Clone for KeyPair {
 }
 
 const MIN_BANK_METIC_AMOUNT: f32 = 0.035;
-const GAS_AMOUNT: f32 = 0.01;
+const GAS_AMOUNT: f32 = 0.05;
 
 struct BankChain {
     pub pairs: Vec<KeyPair>,
@@ -194,9 +194,15 @@ pub async fn handle_transaction_from_bank_post(mut req: Request<Body>) -> Handle
                                     .header(header::ACCESS_CONTROL_ALLOW_HEADERS, "*")
                                     .body("ok".into())
                                     .unwrap()),
-                                Err(_error) => Ok(not_allowed()),
+                                Err(error) => Ok(internal_server_error(format!(
+                                    "Cannot transfer matic: {}",
+                                    error
+                                ))),
                             },
-                            Err(_error) => Ok(not_allowed()),
+                            Err(error) => Ok(internal_server_error(format!(
+                                "Cannot transfer DR: {}",
+                                error
+                            ))),
                         },
                         Err(_error) => panic!("Not enough bank keys"),
                     },

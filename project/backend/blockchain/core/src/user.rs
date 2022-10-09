@@ -107,7 +107,8 @@ pub async fn get_user_exp(user_id: &str) -> Result<u64, CoreError> {
                     true => Err(CoreError::unexpected_no_user()),
                     false => {
                         let row = rows.get(0).unwrap();
-                        Ok(u64::from_str_radix(row.get(0), 10).unwrap())
+                        let exp : i32 = row.get(0);
+                        Ok(u64::try_from(exp).ok().unwrap())
                     }
                 },
                 Err(error) => Err(CoreError::bad_db_operation(error)),
