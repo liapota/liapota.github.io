@@ -1,6 +1,6 @@
 Запуск проекта:
 
-1) cd /project/devops
+1) cd ./project/devops
 2) docker-compose up -d
-
-index.html
+3) cd ./project/frontend
+4) npm start
