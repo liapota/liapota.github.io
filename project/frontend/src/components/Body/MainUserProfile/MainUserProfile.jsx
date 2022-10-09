@@ -59,7 +59,8 @@ const MainUserProfile = () => {
       <UserLogoStyles><UserLogo src={randomLogo(usersLogo)} width="150" height="150"></UserLogo></UserLogoStyles>
         <UserLevelStyles>
           <UserName>
-            {currentUserName} {currentUserusersSurname}
+          Peter Parker
+            {/* TODO {currentUserName} {currentUserusersSurname} */}
           </UserName>
           <LevelTimesStyles>
             10

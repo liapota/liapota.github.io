@@ -27,24 +27,23 @@ const Profile = () => {
   ];
 
   const cost = [
-    { name: "ТОВАР" },
-    { name: "ТОВАР" },
-    { name: "ТОВАР" },
-    { name: "ТОВАР" },
-    { name: "ТОВАР" },
-    { name: "ТОВАР" },
+    { name: "НАУШНИКИ" },
+    { name: "КОФЕ" },
+    { name: "ФУТБОЛКА" },
+    { name: "КЛАВИАТУРА" },
+    { name: "МЫШКА" },
+    { name: "АБОНЕМЕНТ" },
   ];
 
   const plushki = [
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: true },
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: true },
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: false },
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: true },
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: false },
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: true },
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: true },
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: false },
-    { name: "ДОСТИЖЕНИЯ", level: "уровень 5", active: true },
+    { name: "ДМС", level: "уровень 1", active: true },
+    { name: "АБОНЕМЕНТ В СПОРТЗАЛ", level: "уровень 2", active: true },
+    { name: "ОПЛАЧИВАЕМЫЕ КУРСЫ", level: "уровень 4", active: false },
+    { name: "БАССЕЙН", level: "уровень 6", active: true },
+    { name: "КОМАНДИРОВКА", level: "уровень 8", active: false },
+    { name: "КУРСЫ АНГЛИЙСКОГО", level: "уровень 10", active: true },
+    { name: "ЛЬГОТНАЯ ИПОТЕКА", level: "уровень 12", active: true },
+    { name: "БЕСПРОЦЕНТНЫЙ КРЕДИТ", level: "уровень 14", active: true },
   ]
 
   return (

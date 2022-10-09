@@ -1,14 +1,27 @@
 {
   "files": {
-    "main.js": "/static/js/main.6efd1327.js",
+    "main.js": "/static/js/main.bfce3e78.js",
     "static/media/face.svg": "/static/media/face.e731c2ced8fe44bf8154db1d9d145e45.svg",
+    "static/media/userTwo.jpeg": "/static/media/userTwo.f8243c8566b3b33cfc28.jpeg",
+    "static/media/hand.png": "/static/media/hand.5ffeeae2ce95f4601963.png",
     "static/media/event.png": "/static/media/event.d5b7d75433e566dccf83.png",
+    "static/media/monk2.png": "/static/media/monk2.56b082455fd005f23fa3.png",
+    "static/media/monk3.jpeg": "/static/media/monk3.09c5e495f81011ae4674.jpeg",
     "static/media/logo.png": "/static/media/logo.2fffd93c7ef613931d54.png",
+    "static/media/user3.png": "/static/media/user3.0cfe6789dc6a90fb4443.png",
+    "static/media/user2.png": "/static/media/user2.500c3260c1749d2c9a45.png",
+    "static/media/user1.png": "/static/media/user1.8ba74741eba18f48ad74.png",
+    "static/media/user6.png": "/static/media/user6.6ecd24da3c8ca62bcd84.png",
+    "static/media/user4.png": "/static/media/user4.35c01c7e386174fb2afd.png",
+    "static/media/monk1.jpeg": "/static/media/monk1.739129d02a82f4914100.jpeg",
+    "static/media/user5.png": "/static/media/user5.fb290b26e45bd0a7d3de.png",
     "static/media/product.png": "/static/media/product.7cc7212890dab15f5862.png",
+    "static/media/seif.png": "/static/media/seif.002f98676387b52a52f7.png",
     "index.html": "/index.html",
-    "main.6efd1327.js.map": "/static/js/main.6efd1327.js.map"
+    "static/media/defaultNFT.svg": "/static/media/defaultNFT.17c639cb7ce3490907a60c497fe80fda.svg",
+    "main.bfce3e78.js.map": "/static/js/main.bfce3e78.js.map"
   },
   "entrypoints": [
-    "static/js/main.6efd1327.js"
+    "static/js/main.bfce3e78.js"
   ]
 }

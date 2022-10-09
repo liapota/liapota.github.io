@@ -35,7 +35,8 @@ const UserSummary = () => {
         <UserLogoStyles><UserLogo src={randomLogo(usersLogo)} width="150" height="150"></UserLogo></UserLogoStyles>
         <UserLevelStyles>
           <UserName>
-            {name} {surname}
+            {/* TODO {name} {surname} */}
+            Bruce Willis
           </UserName>
           <LevelTimesStyles>
             {10}
