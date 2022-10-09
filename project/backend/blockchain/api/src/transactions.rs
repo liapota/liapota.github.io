@@ -1,5 +1,6 @@
 use core::{
     balance::Balance,
+    db::connect_db,
     response::{bad_request, internal_server_error, not_allowed, not_implemented},
     transaction::{transfer_dr, transfer_matic, ApiCoinTransaction},
 };
@@ -215,5 +216,57 @@ pub async fn handle_transaction_from_bank_post(mut req: Request<Body>) -> Handle
             ))),
         },
         Err(error) => Ok(bad_request(format!("Bad body: {}", error))),
+    }
+}
+
+#[derive(Deserialize)]
+struct ExpInfo {
+    pub coins: f32,
+}
+
+pub async fn handle_buy_exp_post(mut req: Request<Body>) -> HandleResult {
+    match to_bytes(req.body_mut()).await {
+        Ok(bytes) => match serde_json::from_slice(&bytes) {
+            Ok(result) => {
+                let info: ExpInfo = result;
+                match User::from(req.headers()).await {
+                    Ok(user) => match transfer_dr(ApiCoinTransaction {
+                        fromPrivateKey: user.private_key.clone(),
+                        toPublicKey: BankChain::load().get_bank_keys().await.ok().unwrap().public,
+                        amount: info.coins,
+                    })
+                    .await
+                    {
+                        Ok(_result) => match connect_db().await {
+                            Ok(client) => {
+                                let old_exp = user.exp().await.ok().unwrap_or(0);
+                                let new_exp =
+                                    i32::try_from(old_exp + (info.coins as u64) * 10).unwrap();
+                                match client
+                                    .query(
+                                        "UPDATE user_wallet SET exp = $2 WHERE id = $1;",
+                                        &[&user.id, &new_exp],
+                                    )
+                                    .await
+                                {
+                                    Ok(rows) => Ok(Response::builder()
+                                        .header("Content-Type", "plain/text; charset=utf-8")
+                                        .header(header::ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+                                        .header(header::ACCESS_CONTROL_ALLOW_HEADERS, "*")
+                                        .body("ok".into())
+                                        .unwrap()),
+                                    Err(error) => Ok(internal_server_error(format!("{}", error))),
+                                }
+                            }
+                            Err(error) => Ok(internal_server_error(format!("{}", error))),
+                        },
+                        Err(error) => Ok(internal_server_error(format!("{}", error))),
+                    },
+                    Err(_error) => Ok(not_allowed()),
+                }
+            }
+            Err(error) => Ok(bad_request(format!("{}", error))),
+        },
+        Err(error) => Ok(bad_request(format!("{}", error))),
     }
 }
