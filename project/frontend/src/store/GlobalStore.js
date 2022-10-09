@@ -24,7 +24,6 @@ class GlobalStore  {
     }
 
 
-
     handleChange = (id, text) => {
         if (text === "main") {
             this.tabs.map(tab => tab.active = false);

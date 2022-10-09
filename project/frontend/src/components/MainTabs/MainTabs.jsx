@@ -8,7 +8,6 @@ const MainTabs = () => {
   const { globalStore } = useStore();
   const { tabs, handleChange } = globalStore;
 
-
   return (
     <>
       <MainTabsWrapper>

@@ -13,7 +13,7 @@ const Display = () => {
   const { globalStore } = store;
   const { tabs } = globalStore;
   const activeIndex = tabs.findIndex((tab) => tab.active);
-  const activeTab = tabs.every(tab => tab.active);
+  const activeTab = tabs.some(tab => tab.active);
   return (
     <DisplayWrapper>
       {
