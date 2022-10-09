@@ -1,0 +1,64 @@
+@import '../../../styles/variables';
+
+.wrapper {
+  padding: 24px 16px 0 16px;
+  background-color: $orange-new-feature;
+  font-family: $font-verdana;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.header {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.1px;
+  color: $dark;
+  text-align: center;
+  font-weight: normal;
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
+}
+
+.content {
+  margin-top: 16px;
+}
+
+.actions {
+  display: flex;
+  margin: 16px 0 44px 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    margin: 12px 0 34px 0;
+  }
+}
+
+.button {
+  display: inline-flex;
+
+  + .button {
+    margin-left: 16px;
+  }
+
+  @media (max-width: 500px) {
+    display: block;
+    margin-left: 0;
+    margin-top: 16px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+
+
