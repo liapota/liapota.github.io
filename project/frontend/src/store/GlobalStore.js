@@ -23,6 +23,10 @@ class GlobalStore {
     { name: "МОИ NFT", active: true },
     { name: "ПОКУПКИ", active: false },
   ];
+  
+  handleClick = () => {
+    this.tabs.map(tab => tab.active = false);
+}
 
   handleChange = (id, text) => {
     if (text === "main") {

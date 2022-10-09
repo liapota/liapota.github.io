@@ -23,7 +23,7 @@ services:
 
   heartbeat-blockchain:
     container_name: blockchain
-    image: "khedstudio/heartbeat-blockchain"
+    image: "khedstudio/heartbeat-blockchain:latest"
     restart: always
     depends_on:
       - heartbeat-backend-api
