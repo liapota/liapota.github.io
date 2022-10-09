@@ -7,7 +7,6 @@ class GlobalStore  {
     }
 
     currentUserId = 0;
-    showPopup = false;
 
     tabs = [
         { name: "МАГАЗИН", active: false },
@@ -51,10 +50,6 @@ class GlobalStore  {
         { name: "МАРКЕТПЛЕЙС", active: false },
     ];
 
-   
-    handleClick = (event) => {
-        this.showPopup = event;
-    }
     
 }
 
