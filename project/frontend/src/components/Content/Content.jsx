@@ -4,15 +4,18 @@ import { observer } from "mobx-react-lite";
 import UserSummary from "../UserSummary";
 import MainTabs from "../MainTabs";
 import Body from "../Body";
-import { ContentWrapper } from "./Content.styles";
+import { ContentWrapper, PopoverWrapper } from "./Content.styles";
 import { useStore } from "../../store";
 import Popover from "../common/Popover";
+import AboutContent from "../common/Popover/AboutContent";
+import AuthContent from "../common/Popover/AuthContent";
 
 const Content = () => {
   const { userStore, usersListStore, globalStore } = useStore();
   const { getUserHandler } = userStore;
   const { getUsersHandler } = usersListStore;
-  const { isShowPopupAbout,setIsShowPopupAbout } = globalStore;
+  const { isShowPopupAbout, setIsShowPopupAbout, isShowPopupAuth ,setIsShowPopupAuth} =
+    globalStore;
   const ref = useRef();
 
   useEffect(() => {
@@ -21,10 +24,11 @@ const Content = () => {
       // then close the menu
       if (isShowPopupAbout && ref.current && !ref.current.contains(e.target)) {
         setIsShowPopupAbout(false);
+        // setIsShowPopupAuth(true);
       }
     };
     document.addEventListener("mousedown", checkIfClickedOutside);
-console.log('show');
+    console.log("show");
     return () => {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
@@ -39,9 +43,19 @@ console.log('show');
   return (
     <ContentWrapper>
       {isShowPopupAbout ? (
-        <div ref={ref}>
-          <Popover close={()=>setIsShowPopupAbout(false)}/>
-        </div>
+        <PopoverWrapper ref={ref}>
+          <Popover
+            close={() => setIsShowPopupAbout(false)}
+            child={<AboutContent />}
+          />
+        </PopoverWrapper>
+      ) : null}
+      {isShowPopupAuth ? (
+        <PopoverWrapper>
+          <Popover
+            child={<AuthContent />}
+          />
+        </PopoverWrapper>
       ) : null}
       <UserSummary />
       <MainTabs />

@@ -7,9 +7,15 @@ class GlobalStore {
   }
 
   isShowPopupAbout = true;
+  isShowPopupAuth = false;
   setIsShowPopupAbout = (result) => {
     console.log(result);
     this.isShowPopupAbout=result;
+  };
+
+  setIsShowPopupAuth = (result) => {
+    console.log(result);
+    this.isShowPopupAuth=result;
   };
 
   tabs = [
